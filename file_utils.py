@@ -12,7 +12,7 @@ def get_openai_api_key():
 
 TOKEN_LIMIT = 32000
 
-def count_tokens(text, model='davinci'):
+def count_tokens(text, model='gpt-4'):
     response = openai.Completion.create(
         engine=model,
         prompt=text,

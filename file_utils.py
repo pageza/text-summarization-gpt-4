@@ -1,8 +1,15 @@
 import openai
-import openai_secret_manager
 
-assert "openai" in openai_secret_manager.get_services()
-secrets = openai_secret_manager.get_secret("openai")
+import os
+from dotenv import load_dotenv
+
+def get_openai_api_key():
+    load_dotenv()
+    api_key = os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        raise ValueError("OPENAI_API_KEY environment variable not found.")
+    return api_key
+
 TOKEN_LIMIT = 32000
 
 def count_tokens(text, model='davinci'):

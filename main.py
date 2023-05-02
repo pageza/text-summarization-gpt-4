@@ -1,4 +1,5 @@
 import sys
+from file_utils import read_file_and_split, count_tokens
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QPushButton, QFileDialog
 
 
@@ -28,6 +29,9 @@ class MainWindow(QWidget):
         file_name, _ = QFileDialog.getOpenFileName(self, "Select file", "", "All Files (*);;PDF Files (*.pdf);;Text Files (*.txt);;DOCX Files (*.docx);;EPUB Files (*.epub)", options=options)
         if file_name:
             self.file_path_label.setText(file_name)
+            chunks = read_file_and_split(file_name)
+            print(f"File split into {len(chunks)} chunks")
+
 
 
 def main():

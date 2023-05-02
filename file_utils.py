@@ -1,9 +1,22 @@
 import openai
+import openai_secret_manager
 
+assert "openai" in openai_secret_manager.get_services()
+secrets = openai_secret_manager.get_secret("openai")
 TOKEN_LIMIT = 32000
 
-def count_tokens(text):
-    return len(openai.api_client().tokens(text))
+def count_tokens(text, model='davinci'):
+    response = openai.Completion.create(
+        engine=model,
+        prompt=text,
+        max_tokens=1,
+        n=0,
+        stop=None,
+        temperature=0
+    )
+
+    return response.choices[0].logprobs.token_logprobs.shape[0]
+
 
 def read_file_and_split(file_path):
     with open(file_path, 'r') as file:

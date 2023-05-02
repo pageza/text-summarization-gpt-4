@@ -7,6 +7,9 @@ def get_openai_api_key():
     load_dotenv()
     api_key = os.getenv("OPENAI_API_KEY")
     openai.api_key = api_key
+
+    model_list = openai.Model.list()
+    print(model_list)
     if not api_key:
         raise ValueError("OPENAI_API_KEY environment variable not found.")
     return api_key
